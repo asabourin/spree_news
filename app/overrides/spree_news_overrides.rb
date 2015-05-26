@@ -1,7 +1,7 @@
-Deface::Override.new(:virtual_path => "spree/admin/shared/_menu",
+Deface::Override.new(:virtual_path => "spree/layout/admin",
                      :name => "news_admin_tab",
                      :insert_bottom => "[data-hook='admin_tabs']",
-                     :text => "<%= tab(:posts, :icon => 'icon-file-text') %>",
+                     :partial => "admin/shared/news_sidebar_menu",
                      :disabled => false)
 
 Deface::Override.new(:virtual_path => "spree/home/index",
