@@ -1,17 +1,23 @@
 <div data-hook="news">
+  
   <h1>
     <%= t("posts")  %>
   </h1>
-  <ul>
-    <% @posts.each do |post| %>
-      <li>
-        <div>
-          <h6>
-            <%= l(post.created_at, format: "%d %B %Y") %>
-          </h6>
-          <%= link_to post.title, post %>
-        </div>
-      </li>
-    <% end %>
-  </ul>
+  
+  <% @posts.each do |post| %>
+    <div class="row">
+      <div class="col-md-2 col-sm-2">
+        <h5> <%= l(post.created_at, format: "%d %B %Y") %> </h5>
+      </div>
+      <div class="col-md-10 col-sm-10">
+        <h4><%= link_to post.title, post %></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-10 col-sm-10 col-md-offset-2 well">
+        <%= post.description.truncate(300) %>
+      </div>
+    </div>
+  <% end %>
+
 </div>
