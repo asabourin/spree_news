@@ -41,7 +41,7 @@
   </table>
 <% else %>
   <div class="alert alert-warning no-objects-found">
-    <%= Spree.t(:no_resource_found, resource: Spree::post.model_name.human) %>,
+    <%= Spree.t(:no_resource_found, resource: Spree::Post.model_name.human) %>,
     <%= link_to Spree.t(:add_one), spree.new_admin_post_path %>!
   </div>
 <% end %>
