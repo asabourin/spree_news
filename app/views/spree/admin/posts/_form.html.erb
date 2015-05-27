@@ -1,7 +1,26 @@
-<p><%= f.label :title, Spree::Post.human_attribute_name(:title) %></p>
-<p><%= f.text_field :title %></p>
-<p><%= f.label :description, Spree::Post.human_attribute_name(:description) %></p>
-<p><%= f.text_area :description %></p>
-<p><%= f.label :published, Spree::Post.human_attribute_name(:published) %></p>
-<p><%= f.check_box :published %></p>
+<%= form_for [:admin, @post] do |f| %>
+  <div class="row" data-hook="admin_post_form_fields">
+    <div class="col-md-6" data-hook="admin_post_form_left">
+      <div class="form-group field">
+        <%= f.label :title %> <span class="required">*</span><br />
+        <%= f.text_field :title, :class => 'form-control title' %>
+        <%= f.error_message_on :title %>
+      </div>
+
+      <div class="form-group field">
+        <%= f.check_box :published %>
+        <%= f.label :published %>
+      </div>
+
+      <div class="form-group field">
+        <%= f.label :description %><br />
+        <%= f.text_area :description, :class => 'form-control title' %>
+        <%= f.error_message_on :description %>
+      </div>
+
+      </div>
+    </div>
+  <%= render "spree/admin/shared/#{@post.new_record? ? 'new' : 'edit'}_resource_links" %>
+<% end %>
+
 

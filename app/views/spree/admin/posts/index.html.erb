@@ -1,30 +1,47 @@
-<h1>
-  <%= t(:posts) %>
-</h1>
-<div class="new-post">
-  <%= button_link_to t("admin_posts.add_news"), new_object_url, :icon => 'add', :id => 'admin_new_post_link' %>
-</div>
-<table class="index" id="listing_posts">
-  <thead>
-    <th>
-      <%= Spree::Post.human_attribute_name(:title) %>
-    </th>
-    <th></th>
-    <th></th>
-  </thead>
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td>
-          <%= link_to post.title, object_url(post) %>
-        </td>
-        <td>
-          <%= link_to_edit post %>
-        </td>
-        <td>
-          <%= link_to_delete post %>
-        </td>
+<% content_for :page_title do %>
+  <%= Spree.t(:news) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:add_news), new_object_url, icon: 'plus', class: 'btn-primary', id: 'admin_new_post' %>
+<% end %>
+
+<% if @posts.any? %>
+  <table class="table" id="listing_posts" data-hook>
+    <colgroup>
+      <col style="width: 30%">
+      <col style="width: 40%">
+      <col style="width: 10%">
+      <col style="width: 10%">
+      <col style="width: 10%">
+    </colgroup>
+    <thead>
+      <tr data-hook="admin_posts_index_headers">
+        <th><%= Spree::Post.human_attribute_name(:title) %></th>
+        <th><%= Spree::Post.human_attribute_name(:description) %></th>
+        <th class="text-center"><%= Spree::Post.human_attribute_name(:created_at) %></th>
+        <th class="text-center"><%= Spree::Post.human_attribute_name(:published) %></th>
+        <th data-hook="admin_posts_index_header_actions" class="actions"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @posts.each do |post| %>
+        <tr data-hook="admin_posts_index_rows" class="<%= cycle('odd', 'even') %>" id="<%= dom_id post %>">
+          <td><%= post.title %></td>
+          <td><%= post.description.truncate(80) %></td>
+          <td><%= post.created_at.to_formatted_s(:long) %></td>
+          <td class="text-center"><%= content_tag(:i, '', class: 'icon icon-ok') if post.published %></td>
+          <td class="actions text-right" data-hook="admin_posts_index_row_actions">
+            <%= link_to_edit post, no_text: true %>
+            <%= link_to_delete post, no_text: true %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-warning no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: Spree::post.model_name.human) %>,
+    <%= link_to Spree.t(:add_one), spree.new_admin_post_path %>!
+  </div>
+<% end %>
