@@ -1,6 +1,6 @@
 <%= form_for [:admin, @post] do |f| %>
   <div class="row" data-hook="admin_post_form_fields">
-    <div class="col-md-6" data-hook="admin_post_form_left">
+    <div class="col-md-10" data-hook="admin_post_form_left">
       <div class="form-group field">
         <%= f.label :title %> <span class="required">*</span><br />
         <%= f.text_field :title, :class => 'form-control title' %>
