@@ -15,7 +15,7 @@
     </div>
     <div class="row">
       <div class="col-md-10 col-sm-10 col-md-offset-2 well">
-        <%= post.description.truncate(300) %>
+        <%= strip_tags post.description.truncate(300) %>
       </div>
     </div>
   <% end %>
